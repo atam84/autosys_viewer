@@ -1,0 +1,1187 @@
+<html>
+<head>
+  <title>Network | Multiline text</title>
+
+  <style type="text/css">
+		.fieldset-options {
+			border-radius: 5px;
+			border: solid 1px lightgray;
+			font-family: monospace;
+			font-size: 12px;
+		}
+		.input-option {
+			width: 30px;
+		}
+		/* Begin popup style */
+		#overlay {
+			display: none;
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			background: #999;
+			width: 100%;
+			height: 100%;
+			opacity: 0.8;
+			z-index: 100;
+      }
+      #popup, #visPopup {
+			display: none;
+			position: absolute;
+			top: 40%;
+			left: 40%;
+			background: #fff;
+			width: 50%;
+			height: 50%;
+			margin-left: -20%; /*Half the value of width to center div*/
+			margin-top: -20%; /*Half the value of height to center div*/
+			z-index: 200;
+			border: solid 1px lightslategrey;
+			/* border-radius: 10px; */
+      }
+      #popupclose, #vispopupclose {
+			float: right;
+			/*padding: 5px 12px 10px 10px;*/
+			cursor: pointer;
+			margin-right: 7px;
+      }
+		#popupclose:hover, #vispopupclose:hover {
+			color: #3e8e41;
+      }
+		.popupHeader {
+			border-bottom: solid 1px lightgray;
+			background-color: #4CAF50;
+			padding-top: 5px;
+			/* border-radius: 10px 10px 0px 0px; */
+		}
+      .popupcontent {
+			padding: 10px;
+      }
+      #button {
+			cursor: pointer;
+      }
+		.pre-wrap {
+			white-space: pre-wrap;       /* Since CSS 2.1 */
+			white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+			white-space: -pre-wrap;      /* Opera 4-6 */
+			white-space: -o-pre-wrap;    /* Opera 7 */
+			word-wrap: break-word;       /* Internet Explorer 5.5+ */
+		}
+		/* End popup style */
+		.btn-group .button {
+			background-color: #4CAF50;
+			border: none;
+			color: white;
+			padding: 8px 12px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 0.97em;
+			cursor: pointer;
+			float: left;
+			border-radius: 10px;
+			font-family: monospace;
+		}
+		.btn-group .button:hover {
+			background-color: #3e8e41;
+		}
+
+		#mynetwork {
+			width: 80%;
+			height: 60%;
+			border: 1px solid lightgray;
+			margin-bottom: 0.2em;
+		}
+		#subnetwork {
+			width: 97%;
+			height: 100%;
+			border: 1px solid lightgray;
+			float: right;
+		}
+		#viewer {
+			width: 50%;
+			height: 35%;
+		}
+		#expandViewer {
+			width: 12px;
+			height: 100%;
+			border: 1px solid lightgray;
+			float: left;
+			align-items: center;
+			display: flex;
+			/* position: absolute; */
+			vertical-align: middle;
+			background-color: #eee;
+		}
+		#expandViewer:hover {
+			background-color: #ccc;
+		}
+		#jobSelector {
+			width: 19%;
+			height: 60%;
+			border: 1px solid lightgray;
+			float: right;
+			overflow-y: auto;
+		}
+		#infoBox {
+			width: 49%;
+			height: 35%;
+			border: 1px solid transparent;
+		}
+		p {
+			display: block;
+			-webkit-margin-before: 0.5em;
+			-webkit-margin-after: 0.5em;
+			-webkit-margin-start: 0px;
+			-webkit-margin-end: 0px;
+		}
+		.page-header {
+			top: 0px;
+			left: 0px;
+			right: 0px;
+			width: 100%;
+			margin-bottom: 5px;
+			display: block;
+			position: fixed;
+			background-color: #4CAF50;
+			border-color: #4CAF50;
+			z-index: 100;
+			box-shadow: 0 2px 5px 0 rgba(0,0,0,.3);
+			white-space: nowrap;
+		}
+		.pushRight {
+			float: right;
+		}
+		.pushLeft {
+			float: left;
+		}
+		.viewinformation {
+			overflow-y: auto;
+		}
+		.seachInput {
+			width: 18%;
+			border-radius: 7px;
+			height: 25px;
+			padding: 12px 20px 12px 5px;
+			border: 1px solid #4CAF50;
+			margin-top: 4px;
+		}
+		/*
+		 *  STYLE 2
+		 */
+		.scrollbar::-webkit-scrollbar-track
+		{
+			-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+			/* border-radius: 10px; */
+			background-color: #F5F5F5;
+		}
+
+		.scrollbar::-webkit-scrollbar
+		{
+			width: 5px;
+			background-color: #F5F5F5;
+		}
+
+		.scrollbar::-webkit-scrollbar-thumb
+		{
+			/* border-radius: 10px; */
+			-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+			background-color: #4CAF50;
+		}
+		
+		/* LIST #4 */
+		#jobSelector {
+			/*
+			font-family:Georgia, Times, serif;
+			font-size:15px;
+			*/
+			font-family: monospace;
+			font-size: 12px;
+		}
+		#jobSelector ul {
+			list-style: none;
+			padding: 0px;
+			margin: 0px;
+		}
+		#jobSelector ul li { }
+		#jobSelector ul li {
+			display: block;
+			text-decoration: none;
+			color: #000000;
+			background-color: #FFFFFF;
+			line-height: 30px;
+			border-bottom-style: solid;
+			border-bottom-width: 1px;
+			border-bottom-color: #CCCCCC;
+			padding-left: 10px;
+			cursor: pointer;
+		}
+		#jobSelector ul li:hover {
+			color: #FFF;
+			background-color: #4CAF50;
+			-webkit-box-shadow: inset 0 0 12px rgba(0,0,0,0.3);
+		}
+		#jobSelector ul li a strong {
+			margin-right: 10px;
+		}
+		
+		/* LOADING STYLE */
+		#loadingBar {
+            position:absolute;
+            top:0px;
+            left:0px;
+            width: 902px;
+            height: 902px;
+            background-color:rgba(200,200,200,0.8);
+            -webkit-transition: all 0.5s ease;
+            -moz-transition: all 0.5s ease;
+            -ms-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+            opacity:1;
+        }
+        #wrapper {
+            position:relative;
+            width:900px;
+            height:900px;
+        }
+
+        #text {
+            position:absolute;
+            top:8px;
+            left:530px;
+            width:30px;
+            height:50px;
+            margin:auto auto auto auto;
+            font-size:22px;
+            color: #000000;
+        }
+        div.outerBorder {
+            position:relative;
+            top:400px;
+            width:600px;
+            height:44px;
+            margin:auto auto auto auto;
+            border:8px solid rgba(0,0,0,0.1);
+            background: rgb(252,252,252); /* Old browsers */
+            background: -moz-linear-gradient(top,  rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
+            background: linear-gradient(to bottom,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+            border-radius:72px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+        }
+
+        #border {
+            position:absolute;
+            top:10px;
+            left:10px;
+            width:500px;
+            height:23px;
+            margin:auto auto auto auto;
+            box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+            border-radius:10px;
+        }
+
+        #bar {
+            position:absolute;
+            top:0px;
+            left:0px;
+            width:20px;
+            height:20px;
+            margin:auto auto auto auto;
+            border-radius:11px;
+            border:2px solid rgba(30,30,30,0.05);
+            background: rgb(0, 173, 246); /* Old browsers */
+            box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
+        }
+  </style>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css" rel="stylesheet" type="text/css" />
+	
+</head>
+
+<body class="scrollbar" style="margin: 4px;"> <!-- onload="draw()" -->
+	<div class="page-header">
+		<div class="btn-group" style="margin: 10px 10px 10px 15px; display: inline-block; width: 98%;">
+			<button class="button" id="btn-UD" value="Up-Down">Up-Down</button>
+			<button class="button" id="btn-DU" value="Down-Up">Down-Up</button>
+			<button class="button" id="btn-LR" value="Left-Right">Left-Right</button>
+			<button class="button" id="btn-RL" value="Right-Left">Right-Left</button>
+			<button class="button" id="hierarchical" value="false">Hirarchical View</button>
+			<!-- input id="file" type="file"/ -->
+			<label for="file" class="label-file button">Select File</label>
+			<input id="file" class="input-file" type="file" style="display: none;">
+			<button id="visConfiguration" class="button">Configuration</button>
+			<button id="popupControl" class="button">About !</button>
+			<input type="hidden" id="direction" value="UD">
+			<input type="text" class="seachInput pushRight" placeholder="Search" id="findJob" onkeyup="searchJob()">
+		</div>
+	</div>
+
+	<div style="margin-top: 60px;">
+		<div>
+			<div id="jobSelector" class="scrollbar">
+				<ul id="selectedJob" onload="load_all_nodes();"> <!-- onclick="selectJob();" -->
+				</ul>
+			</div>
+			<div id="mynetwork"></div>
+		</div>
+
+		<div>
+			<div id="viewer" class="pushRight">
+				<div id="expandViewer">
+					<span id="dirLeftRight" style="font-size: xx-large;">&#8249;</span>
+				</div>
+				<div id="subnetwork">
+				
+				</div>
+			</div>
+			<div id="infoBox" class='viewinformation scrollbar'>
+				<pre id="eventSpan" class="pre-wrap">Job informations:</pre>
+			</div>
+		</div>
+	</div>
+	<!-- The popup :) -->
+	<div id="overlay"></div>
+	<div id="popup">
+		<div class="popupcontrols popupHeader">
+			<span id="popupclose">&#x2716;</span>
+			<h2 style="margin: 7px;">About</h2>
+		</div>
+		<div class="popupcontent scrollbar" style="overflow-y: auto;width: 95%;height: 80%;">
+			<pre class="pre-wrap">
+Tool name: <strong>AutoSys Viewer</strong>
+Version: <strong>0.2.1 Beta</strong>
+Coder: Atam84 (<strong>amine.tamdy@gmail.com</strong>)
+Repository:
+ - Github: (will be available in the next update)
+<pre style="border: 1px solid lightgray;">
+This tool use Vis.js library to display the network map
+Please visite: <strong>http://visjs.org/</strong>
+</pre>
+about this tool:
+- This tool is still in developpement, some new options will be added soon.
+- This tool can be used for education purpose or for a not lucrative activity.
+- This tool can be used by direct company employee but not by freelancer.
+- freelance activity is lucrative :) you need to support the open source community, they work hard.
+
+<strong>* PI:</strong>
+ - The about section is a joke LOL, you can use this tool like you need for free and by any person for any purpose but at your own risk.
+ - Any modifications of the code is allowed.
+			</pre>
+			<button id="btnPopupclose" class="button pushRight">Close</button>
+		</div>
+	</div>
+	
+	<!-- The config popup -->
+	<div id="visPopup">
+		<div class="popupcontrols popupHeader">
+			<span id="vispopupclose">&#x2716;</span>
+			<h2 style="margin: 7px;">Vis Network Parameters</h2>
+		</div>
+		<div class="popupcontent scrollbar" style="overflow-y: auto;width: 95%;height: 80%;">
+			
+			<div>
+				<!-- fieldset class="fieldset-options">
+					<legend>Main graph configuration</legend -->
+					<h3>Main graph configuration</h3>
+					<fieldset class="fieldset-options">
+						<legend>Layout</legend>
+							<label for="randomSeed">randomSeed : </label><input type="text" id="randomSeed" value="undefined"><br>
+							<input type="checkbox" name="improvedLayout" id="improvedLayout"> Improved Layout<br>
+							<input type="checkbox" name="hierarchicalEnabled" id="hierarchicalEnabled"> Hierarchical Position<br>
+							<label for="hierarchicalLevelSeparation">Hierarchical Level Separation : </label><input class="input-option" type="text" id="hierarchicalLevelSeparation" value="30"><br>
+							<label for="hierarchicalNodeSpacing"    >Hierarchical Node Spacing     : </label><input class="input-option" type="text" id="hierarchicalNodeSpacing" value="25"><br>
+							<label for="hierarchicalTreeSpacing"    >Hierarchical Tree Spacing     : </label><input class="input-option" type="text" id="hierarchicalTreeSpacing" value="35"><br>
+							<input type="checkbox" name="hierarchicalBlockShifting" id="hierarchicalBlockShifting"> Hierarchical Block Shifting<br>
+							<input type="checkbox" name="hierarchicalEdgeMinimization" id="hierarchicalEdgeMinimization"> Hierarchical Edge Minimization<br>
+							<input type="checkbox" name="hierarchicalParentCentralization" id="hierarchicalParentCentralization"> Hierarchical Parent Centralization<br>
+							drawerOptions.layout.hierarchical.direction = String<UD, DU, LR, RL>
+							drawerOptions.layout.hierarchical.sortMethod = String<hubsize, directed>
+					</fieldset>
+					
+					<fieldset class="fieldset-options">
+						<legend>Physics</legend>
+							<input type="checkbox" name="physicsEnabled" id="physicsEnabled"> Physics Enabled<br>
+							<input type="checkbox" name="physicsStabilizationEnabled" id="physicsStabilizationEnabled"> Physics Stabilization Enabled<br>
+							<label for="physicsMaxVelocity">Physics Max Velocity : </label><input class="input-option" type="text" id="physicsMaxVelocity" value="30"><br>
+							<label for="physicsMinVelocity">Mhysics Min Velocity : </label><input class="input-option" type="text" id="physicsMinVelocity" value="25"><br>
+							<label for="physicsSolver"     >physicsSolver        : </label><input class="input-option" type="text" id="hierarchicalTreeSpacing" value="35"><br>
+					</fieldset>
+					
+					<fieldset class="fieldset-options">
+						<legend>Edges</legend>
+							<label for="edgesSmoothType"          >Edges Smooth Type            : </label><input type="text" id="edgesSmoothType" value="dynamic"><br>
+							<label for="edgesSmoothForceDirection">Edges Smooth Force Direction : </label><input type="text" id="edgesSmoothForceDirection" value="none"><br>
+							<label for="edgesSmoothRoundness"     >Edges Smooth Roundness       : </label><input class="input-option" type="text" id="edgesSmoothRoundness" value="none"><br>
+							<input type="checkbox" name="edgesArrowsToEnabled" id="edgesArrowsToEnabled"> Edges Arrows To Enabled<br>
+							<label for="edgesArrowsToType">Edges Arrows To Type : </label><input class="input-option" type="text" id="edgesArrowsToType" value="arrow"><br>
+							<input type="checkbox" name="edgesArrowsFromEnabled" id="edgesArrowsFromEnabled"> Edges Arrows From Enabled<br>
+							<label for="edgesArrowsFromType">Edges Arrows From Type : </label><input class="input-option" type="text" id="edgesArrowsFromType" value="arrow"><br>
+					</fieldset>
+					
+					<fieldset class="fieldset-options">
+						<legend>Manipulation</legend>
+							<input type="checkbox" name="manipulationEnabled" id="manipulationEnabled"> Manipulation Enabled<br>
+					</fieldset>
+					
+					<fieldset class="fieldset-options">
+						<legend>Interaction</legend>
+							<input type="checkbox" name="interactionDragNodes" id="interactionDragNodes"> DragNodes<br>
+							<input type="checkbox" name="interactionDragView" id="interactionDragView"> DragView<br>
+							<input type="checkbox" name="interactionMultiselect" id="interactionMultiselect"> Multiselect<br>
+							<input type="checkbox" name="interactionNavigationButtons" id="interactionNavigationButtons"> Navigation Buttons<br>
+							<input type="checkbox" name="interactionSelectable" id="interactionSelectable"> Selectable<br>
+							<input type="checkbox" name="interactionSelectConnectedEdges" id="manipulationEnabled"> Select Connected Edges<br>
+							<input type="checkbox" name="interactionZoomView" id="interactionZoomView"> Zoom View<br>
+					</fieldset>
+
+				<!-- /fieldset -->
+			</div>
+			
+			<div>
+				<h3>Sub graph configuration</h3>
+				<fieldset class="fieldset-options">
+					<legend>Layout</legend>
+						<label for="randomSeed-Sub">randomSeed : </label><input type="text" id="randomSeed-Sub" value="undefined"><br>
+						<input type="checkbox" name="improvedLayout-Sub" id="improvedLayout-Sub"> Improved Layout<br>
+						<input type="checkbox" name="hierarchicalEnabled-Sub" id="hierarchicalEnabled-Sub"> Hierarchical Position<br>
+						<label for="hierarchicalLevelSeparation-Sub">Hierarchical Level Separation : </label><input class="input-option" type="text" id="hierarchicalLevelSeparation-Sub" value="30"><br>
+						<label for="hierarchicalNodeSpacing-Sub"    >Hierarchical Node Spacing     : </label><input class="input-option" type="text" id="hierarchicalNodeSpacing-Sub" value="25"><br>
+						<label for="hierarchicalTreeSpacing-Sub"    >Hierarchical Tree Spacing     : </label><input class="input-option" type="text" id="hierarchicalTreeSpacing-Sub" value="35"><br>
+						<input type="checkbox" name="hierarchicalBlockShifting" id="hierarchicalBlockShifting-Sub"> Hierarchical Block Shifting<br>
+						<input type="checkbox" name="hierarchicalEdgeMinimization" id="hierarchicalEdgeMinimization-Sub"> Hierarchical Edge Minimization<br>
+						<input type="checkbox" name="hierarchicalParentCentralization" id="hierarchicalParentCentralization-Sub"> Hierarchical Parent Centralization<br>
+						drawerOptions.layout.hierarchical.direction = String<UD, DU, LR, RL>
+						drawerOptions.layout.hierarchical.sortMethod = String<hubsize, directed>
+				</fieldset>
+				
+				<fieldset class="fieldset-options">
+						<legend>Physics</legend>
+							<input type="checkbox" name="physicsEnabled-Sub" id="physicsEnabled-Sub"> Physics Enabled<br>
+							<input type="checkbox" name="physicsStabilizationEnabled-Sub" id="physicsStabilizationEnabled-Sub"> Physics Stabilization Enabled<br>
+							<label for="physicsMaxVelocity-Sub">Physics Max Velocity : </label><input class="input-option" type="text" id="physicsMaxVelocity-Sub" value="30"><br>
+							<label for="physicsMinVelocity-Sub">Mhysics Min Velocity : </label><input class="input-option" type="text" id="physicsMinVelocity-Sub" value="25"><br>
+							<label for="physicsSolver-Sub"     >physicsSolver        : </label><input class="input-option" type="text" id="hierarchicalTreeSpacing-Sub" value="35"><br>
+					</fieldset>
+			</div>
+			<button id="btnVisPopupclose" class="button pushRight">Close</button>
+		</div>
+	</div>
+	
+	<!-- div id="wrapper">
+		<div id="mynetwork"></div>
+		<div id="loadingBar">
+			<div class="outerBorder">
+				<div id="text">0%</div>
+				<div id="border">
+					<div id="bar"></div>
+				</div>
+			</div>
+		</div>
+	</div -->
+	
+	<script type="text/javascript">
+		// Initialize Variables
+		// DOM ELEMENTS
+		var closePopup = document.getElementById("popupclose");
+		var btnClosePopup = document.getElementById("btnPopupclose");
+		var overlay = document.getElementById("overlay");
+		var popup = document.getElementById("popup");
+		var popupCtrl = document.getElementById("popupControl");
+		
+		var vispopupclose = document.getElementById("vispopupclose");
+		var btnVisClosePopup = document.getElementById("btnVisPopupclose");
+		var visConf = document.getElementById("visConfiguration");
+		var visPopup = document.getElementById("visPopup");
+		
+		var btnUD = document.getElementById("btn-UD");
+		var btnDU = document.getElementById("btn-DU");
+		var btnLR = document.getElementById("btn-LR");
+		var btnRL = document.getElementById("btn-RL");
+		var expandBtn = document.getElementById("expandViewer");
+		var selectedJob = document.getElementById("selectedJob");
+		var container = document.getElementById('mynetwork');
+		var subContainer = document.getElementById('subnetwork');
+		/* Configuration Popup*/
+		visConfiguration.onclick = function() {
+			console.log('Open Configuration window of vis.');
+			overlay.style.display = 'block';
+			visPopup.style.display = 'block';
+		};
+		vispopupclose.onclick = function() {
+			console.log('Close About popup.');
+			overlay.style.display = 'none';
+			visPopup.style.display = 'none';
+		};
+		btnVisClosePopup.onclick = function() {
+			console.log('Close About popup.');
+			overlay.style.display = 'none';
+			visPopup.style.display = 'none';
+		};
+		
+		/*   POPUP ABOUT ! */
+		closePopup.onclick = function() {
+			console.log('Close About popup.');
+			overlay.style.display = 'none';
+			popup.style.display = 'none';
+		};
+		btnClosePopup.onclick = function() {
+			console.log('Close About popup.');
+			overlay.style.display = 'none';
+			popup.style.display = 'none';
+		};
+		popupCtrl.onclick = function() {
+			console.log('Open About popup.');
+			overlay.style.display = 'block';
+			popup.style.display = 'block';
+		}
+		/*   END POPUP CONTROL CODE*/
+		
+		var subData = null;
+		var viewExpanded = false;
+		var directionInput = document.getElementById("direction");
+		var hierarchicalView = document.getElementById("hierarchical");
+		//var ulJobList = document.getElementById("selectedJob");
+		var levelSeparation = 30;
+		var nodeSpacing = 25;
+		var treeSpacing = 35;
+		var network = null;
+		var subnetwork = null;
+		var smoothType = "dynamic"; // "curvedCW",
+		var nodes = [];
+		var edges = [];
+		
+		var fileInput = document.querySelector('#file');
+		
+		// ******************************** FILE PARSING
+		function isBlank(str) {
+			return (!str || /^\s*$/.test(str));
+		};
+
+		function isEmpty(str) {
+			return (!str || 0 === str.length);
+		};
+		
+		function initialize() {
+			nodes = [];
+			edges = [];
+			jobsAnalyses = [];
+			network = {};
+			subnetwork = {};
+			while(selectedJob.firstChild) {
+				selectedJob.removeChild(selectedJob.firstChild);
+			}
+			while(container.firstChild) {
+				container.removeChild(container.firstChild);
+			}
+			draw([], []);
+		};
+
+		fileInput.addEventListener('change', function() {
+			var reader = new FileReader();
+			var jobsAnalyses = [];
+			//network.setData({nodes: [], edges: []});
+			/*
+			setTimeout(function () {
+				network.setData({nodes: [], edges: []});
+			}, 1500);
+			*/
+			// cleanup container
+			while(container.firstChild) {
+				container.removeChild(container.firstChild);
+			}
+			//initialize();
+			reader.addEventListener('load', function() {
+				var lines = reader.result.split('\n');
+				var blocks = [];
+				var newBlock = [];
+				var blockCount = 0;
+				
+				for(var i = 0; i < lines.length; i++) {
+					//document.getElementById('file-content').innerHTML = document.getElementById('file-content').innerHTML + i + ' - '+ lines[i] + '\n';
+					var ln = lines[i].trim();
+					var lnsize = ln.length;
+					if(!isEmpty(ln) && ln.indexOf('/*') < 0 && ln.indexOf('*/') < 0) {
+						//document.getElementById('file-content').innerHTML = document.getElementById('file-content').innerHTML + i + ' - ' + ln + '\n';
+						newBlock.push(ln);
+					} else if(isEmpty(ln)) {
+						if(newBlock.length) {
+							blocks.push({newBlock});
+							blockCount += 1;
+							////document.getElementById('file-content').innerHTML = blockCount + ' Block detected';
+						}
+						var newBlock = [];
+					}
+				}
+				
+				////var msgStatus = document.getElementById('file-content').innerHTML;
+				for(var y = 0; y < blocks.length; y++) {
+				//blocks.forEach(function(nblock) {
+					//var block = nblock.newBlock;
+					var block_analyses = {};
+					var block = blocks[y].newBlock;
+
+					for(var i = 0; i < block.length; i++) {
+						//one time split
+						var splitedBlock = block[i].split(':');
+						if(block[i].startsWith('insert_job')) {
+							ins_job_info = block[i].replace(':', ' ').replace(/  +/g, ' ').split(' ');
+							block_analyses.job_name = ins_job_info[1];
+							block_analyses.type = ((ins_job_info[3]) ? ins_job_info[3] : '');
+						} else if(block[i].startsWith('box_name')) {
+							block_analyses.box_name = ((splitedBlock.length > 1) ? splitedBlock[1].trim() : '');
+						} else if(block[i].startsWith('owner')) {
+							block_analyses.owner = ((splitedBlock.length > 1) ? splitedBlock[1].trim() : '');
+						} else if(block[i].startsWith('permission')) {
+							block_analyses.permission = ((splitedBlock.length > 1) ? splitedBlock[1].trim() : '');
+						} else if(block[i].startsWith('date_conditions')) {
+							block_analyses.date_conditions = ((splitedBlock.length > 1) ? splitedBlock[1].trim() : '');
+						} else if(block[i].startsWith('condition')) {
+							block_analyses.condition = ((splitedBlock.length > 1) ? splitedBlock[1].trim() : '');
+								// success (JobA)     TRUE   = s
+								// failure (JobA)     FALSE  = f
+								// terminated (JobA)  FALSE  = t
+								// done (JobA)        TRUE   = d
+								// notrunning (JobA)  TRUE   = n
+								// (success(JobA) and success(JobB)) or (success(JobD) AND success(JobE))
+							
+							var success = [];
+							var failure = [];
+							var terminated = [];
+							var done = [];
+							var notrunning = [];
+							var myCondition = block_analyses.condition.replace(/and|or|\&|\|/gi, '').replace(/ +/g, ' ').split(' '); //remove and, or, &, |
+							
+							for(var v = 0; v < myCondition.length; v++) {
+								var jobCondition = myCondition[v].replace(/\(|\)/g, ' ').trim().replace(/ +/g, ' '); // cleanup the condition
+								var splitedCondition = jobCondition.split(' ');
+								var status = splitedCondition[0].toLowerCase();
+								var linkedjob = splitedCondition[1];
+
+								if(status == 'success' || status == 's') {
+									success.push(linkedjob);
+								} else if(status == 'failure' || status == 'f') {
+									failure.push(linkedjob);
+								} else if(status == 'terminated' || status == 't') {
+									terminated.push(linkedjob);
+								} else if(status == 'done' || status == 'd') {
+									done.push(linkedjob);
+								} else if(status == 'notrunning' || status == 'n') {
+									notrunning.push(linkedjob);
+								}
+							}
+							
+							block_analyses.condition_links = {
+								success: success,
+								failure: failure,
+								terminated: terminated,
+								done: done,
+								notrunning: notrunning
+							}
+						} else if(block[i].startsWith('run_calendar')) {
+							block_analyses.run_calendar = ((splitedBlock.length > 1) ? splitedBlock[1].trim() : '');
+						} else if(block[i].startsWith('must_start_times')) {
+							splitedBlock = block[i].split('"');
+							block_analyses.must_start_times = ((splitedBlock.length > 1) ? splitedBlock[1].trim() : '');
+						} else if(block[i].startsWith('start_times')) {
+							splitedBlock = block[i].split('"');
+							block_analyses.start_times = ((splitedBlock.length > 1) ? splitedBlock[1].trim() : '');
+						} else if(block[i].startsWith('description')) {
+							splitedBlock = block[i].split('"');
+							block_analyses.description = ((splitedBlock.length > 1) ? splitedBlock[1].trim() : '');
+						} else if(block[i].startsWith('alarm_if_fail')) {
+							block_analyses.alarm_if_fail = ((splitedBlock.length > 1) ? splitedBlock[1].trim() : '');
+						} else if(block[i].startsWith('group')) {
+							block_analyses.group = ((splitedBlock.length > 1) ? splitedBlock[1].trim() : '');
+						} else if(block[i].startsWith('command')) {
+							block_analyses.command = ((splitedBlock.length > 1) ? splitedBlock[1].trim() : '');
+						} else if(block[i].startsWith('machine')) {
+							block_analyses.machine = ((splitedBlock.length > 1) ? splitedBlock[1].trim() : '');
+						} else if(block[i].startsWith('std_out_file')) {
+							splitedBlock = block[i].split('"');
+							block_analyses.std_out_file = ((splitedBlock.length > 1) ? splitedBlock[1].trim() : '');
+						} else if(block[i].startsWith('std_if_file')) {
+							splitedBlock = block[i].split('"');
+							block_analyses.std_if_file = ((splitedBlock.length > 1) ? splitedBlock[1].trim() : '');
+						} if(block[i].startsWith('resources')) {
+							block_analyses.resources = ((splitedBlock.length > 1) ? splitedBlock[1].trim() : '');
+						}
+					}
+					jobsAnalyses.push(block_analyses);
+					var counter = y + 1;
+					////document.getElementById('file-content').innerHTML = msgStatus + ' analysing: ' + counter + '/' + blockCount;
+				//});
+				}
+			});
+			reader.addEventListener('loadend', function() {
+				console.log('- Loading file end.');
+				console.dir(jobsAnalyses);
+				console.log('- Processing VisJS objects definition started.');
+				makeVis(jobsAnalyses);
+			});
+			reader.readAsText(fileInput.files[0]);
+			//console.dir(jobsAnalyses);
+		});
+		
+		function makeVis(jsonJob) {
+			jsonJob.forEach(function(node) {
+				var nodeConf = {};
+				var nodeEdgeConf = [];
+				if(node.type.toLowerCase() == 'cmd') {
+					// define node configuration
+					nodes.push({
+						id: node.job_name, 
+						//label: node.job_name + ' - <code>' + node.start_time + '</code>',
+						label: node.job_name,
+						shape: 'box',
+						font: { multi: 'md' },
+						title: '<pre><small>' + node.description + '<br>\
+start time: ' + node.start_times + '<br>\
+Command: ' + node.command + '<br>\
+Calendar: ' + node.run_calendar + '<br>\
+Group: ' + node.group + '<br>\
+Machine: ' + node.machine + '<br>\
+Resources: ' + node.resources + '<br>\
+Owner: ' + node.owner + '</small></pre>',
+					});
+					// define edge configuration
+					if(node.box_name) {
+						// single edge from box to job
+						edges.push({from: node.box_name, to: node.job_name});
+					}
+				} else if(node.type.toLowerCase() == 'box') {
+					nodes.push({
+						id: node.job_name, 
+						//label: '<b>'+node.job_name + '</b> - <code>' + node.start_time + '</code>',
+						label: node.job_name,
+						shape: 'circle',
+						color: {
+							color: '#999999',
+							hover: '#CCCCCC'
+						},
+						font: { multi: 'md' },
+						title: '<pre><small>' + node.description + '<br>\
+start time: ' + node.start_time + '<br>\
+Command: ' + node.command + '<br>\
+Calendar: ' + node.run_calendar + '<br>\
+Group: ' + node.group + '<br>\
+Machine: ' + node.machine + '<br>\
+Resources: ' + node.resources + '<br>\
+Owner: ' + node.owner + '</small></pre>',
+					});
+				}
+				
+				if(node.condition_links) {
+					// multiple edge, relations between jobs and jobs box
+					if(node.condition_links.done.length) {
+						// color: #ff9900, hover: #ffcc66
+						for(var i = 0; i < node.condition_links.done.length; i++) {
+							edges.push({
+								from: node.condition_links.done[i],
+								to: node.job_name,
+								label: 'Done',
+								color: { color: '#ff9900', hover: '#ffcc66' }
+							});
+						}
+					}
+					if(node.condition_links.failure.length) {
+						// color: #ff3300, hover: #ff5050
+						for(var i = 0; i < node.condition_links.failure.length; i++) {
+							edges.push({
+								from: node.condition_links.failure[i],
+								to: node.job_name,
+								label: 'failure',
+								color: { color: '#ff3300', hover: '#ff5050' }
+							});
+						}
+					}
+					if(node.condition_links.notrunning.length) {
+						// color: #b1cdcd, hover: #c6d8ec
+						for(var i = 0; i < node.condition_links.notrunning.length; i++) {
+							edges.push({
+								from: node.condition_links.notrunning[i],
+								to: node.job_name,
+								label: 'notrunning',
+								color: { color: '#b1cdcd', hover: '#c6d8ec' }
+							});
+						}
+					}
+					if(node.condition_links.success.length) {
+						// color: #009933, hover: #33cc33
+						for(var i = 0; i < node.condition_links.success.length; i++) {
+							edges.push({
+								from: node.condition_links.success[i],
+								to: node.job_name,
+								label: 'success',
+								color: { color: '#009933', hover: '#33cc33' }
+							});
+						}
+					}
+					if(node.condition_links.terminated.length) {
+						// color: #0033cc, hover: #3366ff
+						for(var i = 0; i < node.condition_links.terminated.length; i++) {
+							edges.push({
+								from: node.condition_links.terminated[i],
+								to: node.job_name,
+								label: 'terminated',
+								color: { color: '#0033cc', hover: '#3366ff' }
+							});
+						}
+					}
+				}
+			});
+			console.log(nodes.length + ' nodes found !!!');
+			console.log(edges.length + ' links between nodes defined');
+			draw(nodes, edges);
+		}
+		
+		// ********************************  VISJS MANIPULATION
+		hierarchicalView.onclick = function() {
+			if(hierarchicalView.value == 'false') {
+				hierarchicalView.innerHTML = 'Network View';
+				hierarchicalView.value = 'true';
+				// drawerOptions.layout.improvedLayout
+				drawerOptions.layout.hierarchical.enabled = true;
+				drawerOptions.layout.hierarchical.levelSeparation = 150;
+				drawerOptions.layout.hierarchical.nodeSpacing = 200;
+				drawerOptions.layout.hierarchical.treeSpacing = 200;
+				smoothType = "curvedCW";
+			} else {
+				hierarchicalView.innerHTML = 'Hirarchical View';
+				hierarchicalView.value = 'false';
+				drawerOptions.layout.hierarchical.enabled = false;
+				drawerOptions.layout.hierarchical.levelSeparation = 30;
+				drawerOptions.layout.hierarchical.nodeSpacing = 25;
+				drawerOptions.layout.hierarchical.treeSpacing = 35;
+				smoothType = "dynamic";
+			}
+			draw(nodes, edges);
+		};
+		
+		btnUD.onclick = function() {
+			drawerOptions.layout.hierarchical.direction = "UD";
+			draw(nodes, edges);
+		};
+		btnDU.onclick = function() {
+			drawerOptions.layout.hierarchical.direction = "DU";
+			draw(nodes, edges);
+		};
+		btnLR.onclick = function() {
+			drawerOptions.layout.hierarchical.direction = "LR";
+			draw(nodes, edges);
+		};
+		btnRL.onclick = function() {
+			drawerOptions.layout.hierarchical.direction = "RL";
+			draw(nodes, edges);
+		};
+		expandBtn.onclick = function() {
+			// from right to left: &#8249; (expend) -   from left to right: &#8250; (unexpand)
+			if(viewExpanded) {
+				viewExpanded = false;
+				document.getElementById('dirLeftRight').innerHTML = "&#8249;";
+				document.getElementById('viewer').style.width = "50%";
+			} else {
+				viewExpanded = true;
+				document.getElementById('dirLeftRight').innerHTML = "&#8250;";
+				document.getElementById('viewer').style.width = "100%";
+			}
+			console.dir(viewExpanded);
+		};
+		
+		/* Load all nodes in ul/il list */
+		function load_all_nodes() {
+			var nodesList = '';
+			while(selectedJob.firstChild) {
+				selectedJob.removeChild(selectedJob.firstChild);
+			}
+			console.log('- Loading select job menu');
+			network.body.nodeIndices.forEach(function(element) {
+				nodesList = nodesList + '<li id="'+ element +'">' + element + '</li>';
+			});
+			selectedJob.innerHTML = nodesList;
+		};
+		
+		selectedJob.onclick = function(event) {
+			//event.preventDefault();
+			var jobID = event.target.id
+			console.log('Selected Job: ' + jobID);
+			network.selectNodes([jobID]);
+			select_Node(null);
+			network.focus(jobID, {
+				scale: 0.7,
+				animation: true
+			});
+		};
+		
+		function select_Node(params) {
+			//var __selectedNode = network.getNodeAt(params.pointer.DOM);
+			var __selectedNode = network.getSelectedNodes()[0];
+			var __from = network.getConnectedNodes(__selectedNode, 'from');
+			var __to = network.getConnectedNodes(__selectedNode, 'to');
+			var __nodes = [{id: __selectedNode, label: __selectedNode, color:'#FB7E81'}];
+			var __edgeLinks = [];
+			
+			__from.concat(__to).forEach(function(element) {
+				__nodes.push({id: element, label: element});
+			});
+			__from.forEach(function(element) {
+				__edgeLinks.push({from: element, to: __selectedNode, color: {color: '#ff9900'}});
+			});
+			__to.forEach(function(element) {
+				__edgeLinks.push({from: __selectedNode, to: element, color: {color: '#9933ff'}});
+			});
+			document.getElementById('eventSpan').innerHTML = '<h3>Informations: </h3><h3>' + __selectedNode + '</h3><br>Waiting for: ' + JSON.stringify(__from, null, 4) + ' <br>Activate: ' + JSON.stringify(__to, null, 4);
+			subdraw(__nodes, __edgeLinks);
+		};
+		
+		function searchJob() {
+			var __whatSearch = document.getElementById("findJob");
+			var filter = __whatSearch.value.toUpperCase();
+			var ulElement = document.getElementById("selectedJob");
+			var li = ulElement.getElementsByTagName('li');
+			var i;
+			if(network !== null) {
+				for (i = 0; i < li.length; i++) {
+					__key = li[i].innerHTML;
+					if (__key.toUpperCase().indexOf(filter) > -1) {
+							li[i].style.display = "";
+					} else {
+							li[i].style.display = "none";
+					}
+				}
+				network.selectNodes([__whatSearch.value]);
+				select_Node(null);
+				network.focus(__whatSearch.value, {
+					scale: 0.7,
+					animation: true
+				});
+			}
+		}
+		
+		var subDrawerOptions = {
+			nodes: {
+				shape: 'box'
+			},
+			edges: {
+				arrows: 'to',
+				scaling: {
+					label: true,
+				},
+				smooth: {
+					type: "dynamic", // "curvedCW",
+					forceDirection: "none",
+					roundness: 1
+				}
+			},
+			layout: {
+				randomSeed: undefined,
+				improvedLayout:true,
+				hierarchical: {
+					enabled: true,
+					levelSeparation: 55,
+					nodeSpacing: 200,
+					treeSpacing: 100,
+					blockShifting: true,
+					edgeMinimization: false,
+					parentCentralization: true,
+					direction: 'UD',        // UD, DU, LR, RL
+					sortMethod: 'hubsize'   // hubsize, directed
+				}
+			},
+			physics:{
+				enabled: false,
+				barnesHut: {
+					avoidOverlap: 1
+				},
+			}
+		};
+		function subdraw(nodes, edges) {
+			var data = {
+				nodes: nodes,
+				edges: edges
+			}
+			console.dir(data);
+			subnetwork = new vis.Network(subContainer, data, subDrawerOptions);
+		}
+		
+		var drawerOptions = {
+			nodes: {
+				color: {
+					//border: '#2B7CE9',
+					//background: '#97C2FC',
+					highlight: {
+						border: '#2B7CE9',
+						background: '#D2E5FF'
+					},
+					/*hover: {
+						border: '#2B7CE9',
+						background: '#D2E5FF'
+					}*/
+				},
+				shape: 'box',
+				font: {
+					multi: 'md'
+				}
+			},
+			edges: {
+				smooth: {
+					type: smoothType, // "dynamic", "curvedCW",
+					forceDirection: "none",
+					roundness: 1
+				},
+				arrows: {
+					to: {
+						enabled: true,
+						type: 'arrow'
+					}
+				}
+			},
+			layout: {
+				randomSeed: undefined,
+				improvedLayout: false,
+				hierarchical: {
+					enabled: false,
+					levelSeparation: 30,
+					nodeSpacing: 25,
+					treeSpacing: 35,
+					blockShifting: true,
+					edgeMinimization: true,
+					parentCentralization: true,
+					direction: 'UD',        // UD, DU, LR, RL
+					sortMethod: 'hubsize'   // hubsize, directed
+				}
+			},
+			interaction:{
+				dragNodes:true,
+				dragView: true,
+				hideEdgesOnDrag: true,
+				hideNodesOnDrag: false,
+				hover: true,
+				hoverConnectedEdges: true,
+				keyboard: {
+					enabled: false,
+					speed: {
+						x: 10,
+						y: 10,
+						zoom: 0.05
+					},
+					bindToWindow: true
+				},
+				multiselect: true,
+				navigationButtons: true,
+				selectable: true,
+				selectConnectedEdges: true,
+				tooltipDelay: 500,
+				zoomView: true
+			},
+			manipulation: {
+				enabled: false
+			},
+			physics:{
+				//enabled: true,
+				barnesHut: {
+					gravitationalConstant: -80000, //-5000,
+					//centralGravity: 0.2,
+					springLength: 200, //95,
+					springConstant: 0.001, //0.04,
+					//damping: 0.09,
+					//avoidOverlap: 1
+				},
+				forceAtlas2Based: {
+					gravitationalConstant: -50,
+					centralGravity: 0.01,
+					springConstant: 0.08,
+					springLength: 100,
+					damping: 0.4,
+					avoidOverlap: 0
+				},
+				repulsion: {
+					centralGravity: 0.2,
+					springLength: 200,
+					springConstant: 0.05,
+					nodeDistance: 100,
+					damping: 0.09
+				},
+				hierarchicalRepulsion: {
+					centralGravity: 0.0,
+					springLength: 100,
+					springConstant: 0.01,
+					nodeDistance: 120,
+					damping: 0.09
+				},
+				maxVelocity: 50,
+				minVelocity: 0.1,
+				solver: 'repulsion',
+				/*stabilization: {
+					enabled: true,
+					iterations: 1000,
+					updateInterval: 100,
+					onlyDynamicEdges: false,
+					fit: true
+				},*/
+				stabilization: false,
+				timestep: 0.5,
+				adaptiveTimestep: true
+			}
+		};
+		function draw(nodes, edges) {
+			var data = {
+				nodes: nodes,
+				edges: edges
+			};
+			network = new vis.Network(container, data, drawerOptions);
+			load_all_nodes();
+			
+			/*
+			network.on('select', function(params) {
+				console.log('Select action from draw();');
+				params.event.target.innerHTML = '<strong>DODO</strong>';
+				console.dir(params.event.target);
+			});
+			*/
+			network.on("stabilizationProgress", function(params) {
+				var maxWidth = 496;
+				var minWidth = 20;
+				var widthFactor = params.iterations/params.total;
+				var width = Math.max(minWidth,maxWidth * widthFactor);
+				document.getElementById('bar').style.width = width + 'px';
+				document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
+				console.log(' - Loading progress : ' + Math.round(widthFactor*100) + '%');
+			});
+			network.once("stabilizationIterationsDone", function() {
+				document.getElementById('text').innerHTML = '100%';
+				document.getElementById('bar').style.width = '496px';
+				document.getElementById('loadingBar').style.opacity = 0;
+				// really clean the dom element
+				console.log(' - Loading Done.');
+				setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+			});
+			network.on('click', function(params) {
+				select_Node(params);
+			});
+			/*
+			network.on("showPopup", function (params) {
+					document.getElementById('eventSpan').innerHTML = '<h5>showPopup event: </h5>' + JSON.stringify(params, null, 4);
+			});
+			network.on("hidePopup", function () {
+					console.log('hidePopup Event');
+			});
+			*/
+		};
+		
+		/*
+		document.addEventListener('DOMContentLoaded', function() {
+			 load_all_nodes();
+		}, false);
+		*/
+	</script>
+</body>
+
+
+</html>
