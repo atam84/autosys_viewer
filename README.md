@@ -3,6 +3,12 @@
 simple html javascript tool that allow user to view the autosys tree representation (box and jobs) using visjs
 
 
+# preview 
+
+![alt text](screenshots/load_data.png "Loading data")
+
+![alt text](screenshots/find_job.png "find job")
+
 
 # How to use it
 ```
