@@ -1,0 +1,1467 @@
+
+
+/* ----------------- dbrRivStock ----------------- */ 
+
+insert_job: dbrRivStock   job_type: BOX 
+owner: stkmngr
+permission: 
+date_conditions: 1
+run_calendar: CALAND01-E-wd01Univ
+start_times: "01:00"
+description: "STOCK : Stock operations"
+alarm_if_fail: 0
+group: H003
+
+
+ /* ----------------- dbrRivStock_jv ----------------- */ 
+
+ insert_job: dbrRivStock_jv   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__vir.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "15:00"
+ description: "Extract pending demand"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RVIR,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_updn01 ----------------- */ 
+
+ insert_job: dbrRivStock_updn01   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__up_ambp.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "12:00"
+ description: "Consolidation and prep of data consolidation"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RU_PAM_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_updn02 ----------------- */ 
+
+ insert_job: dbrRivStock_updn02   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__up_ambp.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "14:00"
+ description: "Consolidation and prep of data consolidation"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-RU_PAM_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_updn03 ----------------- */ 
+
+ insert_job: dbrRivStock_updn03   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__up_ambp.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "16:00"
+ description: "Consolidation and prep of data consolidation"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-RU_PAM_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_upst01 ----------------- */ 
+
+ insert_job: dbrRivStock_upst01   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__up_ambv.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "12:00"
+ description: "Collect new data"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RU_PAMBV_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_upst02 ----------------- */ 
+
+ insert_job: dbrRivStock_upst02   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__up_ambv.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "14:00"
+ description: "Collect new data"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RU_PAMBV_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_upst03 ----------------- */ 
+
+ insert_job: dbrRivStock_upst03   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__up_ambv.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "16:00"
+ description: "Collect new data"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RU_PAMBV_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_upstk01 ----------------- */ 
+
+ insert_job: dbrRivStock_upstk01   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__up_simc.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "07:00"
+ description: "Code 500 validation of consolidation"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RU_PSIMC_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_upstk02 ----------------- */ 
+
+ insert_job: dbrRivStock_upstk02   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__up_simc.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "08:00"
+ description: "Confirmation 500 Validated"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RU_PSIMC_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_upstk03 ----------------- */ 
+
+ insert_job: dbrRivStock_upstk03   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__up_simc.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "09:00"
+ description: "Code 500 validation of consolidation"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RU_PSIMC_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_upstk04 ----------------- */ 
+
+ insert_job: dbrRivStock_upstk04   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__up_simc.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "10:00"
+ description: "Code 500 validation of consolidation"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RU_PSIMC_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_upstk05 ----------------- */ 
+
+ insert_job: dbrRivStock_upstk05   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__up_simc.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "11:00"
+ description: "Code 500 validation of consolidation"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RU_PSIMC_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_upstk06 ----------------- */ 
+
+ insert_job: dbrRivStock_upstk06   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__up_simc.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "12:00"
+ description: "Code 500 validation of consolidation"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RU_PSIMC_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_upstk07 ----------------- */ 
+
+ insert_job: dbrRivStock_upstk07   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__up_simc.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "13:00"
+ description: "Code 500 validation of consolidation"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RU_PSIMC_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_upstk08 ----------------- */ 
+
+ insert_job: dbrRivStock_upstk08   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__up_simc.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "14:00"
+ description: "Code 500 validation of consolidation"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RU_PSIMC_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_upstk09 ----------------- */ 
+
+ insert_job: dbrRivStock_upstk09   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__up_simc.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "15:00"
+ description: "Code 500 validation of consolidation"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RU_PSIMC_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_upstk10 ----------------- */ 
+
+ insert_job: dbrRivStock_upstk10   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__up_simc.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "16:00"
+ description: "Code 500 validation of consolidation"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RU_PSIMC_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_dnk01 ----------------- */ 
+
+ insert_job: dbrRivStock_dnk01   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__up_simp.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "12:00"
+ description: "Step: collect incoming provision"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RU_PSIMP_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_dnk02 ----------------- */ 
+
+ insert_job: dbrRivStock_dnk02   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__up_simp.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "14:00"
+ description: "Step: collect incoming provision"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RU_PSIMP_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_dnk03 ----------------- */ 
+
+ insert_job: dbrRivStock_dnk03   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__up_simp.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "16:00"
+ description: "Step: collect incoming provision"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RU_PSIMP_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_upmv01 ----------------- */ 
+
+ insert_job: dbrRivStock_upmv01   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__up_mv.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "12:00"
+ description: "Do the next step"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RUPSIMV_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_upmv02 ----------------- */ 
+
+ insert_job: dbrRivStock_upmv02   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__up_mv.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "14:00"
+ description: "Step: collect incoming provision"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RUPSIMV_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_upmv03 ----------------- */ 
+
+ insert_job: dbrRivStock_upmv03   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__up_mv.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "16:00"
+ description: "Step: collect incoming provision"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RUPSIMV_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_jasc ----------------- */ 
+
+ insert_job: dbrRivStock_jasc   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/jasc.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "21:00"
+ description: "Extract additional data"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RASC_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_j_cl ----------------- */ 
+
+ insert_job: dbrRivStock_j_cl   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j_cl.sh 0
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "21:00"
+ description: "Extract customer information"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RCHQ_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_j_exec ----------------- */ 
+
+ insert_job: dbrRivStock_j_exec   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j_exec.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "21:00"
+ description: "Puch Data in tempo file"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-REXPBEN_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_inf01 ----------------- */ 
+
+ insert_job: dbrRivStock_inf01   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__ord_bou.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "09:00"
+ description: "Inform the world wide Stock site"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RORDBOU_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_inf02 ----------------- */ 
+
+ insert_job: dbrRivStock_inf02   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__ord_bou.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "10:00"
+ description: "Inform the world wide Stock site"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RORDBOU_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_inf03 ----------------- */ 
+
+ insert_job: dbrRivStock_inf03   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__ord_bou.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "11:00"
+ description: "Inform the world wide Stock site"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RORDBOU_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_inf04 ----------------- */ 
+
+ insert_job: dbrRivStock_inf04   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__ord_bou.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "12:00"
+ description: "Inform the world wide Stock site"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RORDBOU_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_inf05 ----------------- */ 
+
+ insert_job: dbrRivStock_inf05   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__ord_bou.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "13:00"
+ description: "Inform the world wide Stock site"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RORDBOU_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_inf06 ----------------- */ 
+
+ insert_job: dbrRivStock_inf06   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__ord_bou.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "14:00"
+ description: "Inform the world wide Stock site"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RORDBOU_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_inf07 ----------------- */ 
+
+ insert_job: dbrRivStock_inf07   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__ord_bou.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "15:00"
+ description: "Inform the world wide Stock site"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RORDBOU_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_inf08 ----------------- */ 
+
+ insert_job: dbrRivStock_inf08   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__ord_bou.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "16:00"
+ description: "Inform the world wide Stock site"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RORDBOU_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_inf09 ----------------- */ 
+
+ insert_job: dbrRivStock_inf09   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__ord_bou.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "17:00"
+ description: "Inform the world wide Stock site"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RORDBOU_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- dbrRivStock_inf10 ----------------- */ 
+
+ insert_job: dbrRivStock_inf10   job_type: CMD 
+ box_name: dbrRivStock
+ command: echo /stkmngr/scripts/j__ord_bou.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: CALAND01-E-wd01Univ
+ start_times: "18:00"
+ description: "Inform the world wide Stock site"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RORDBOU_ID,QUANTITY=1,FREE=A)
+
+
+/* ----------------- siteNYUS ----------------- */ 
+
+insert_job: siteNYUS   job_type: BOX 
+owner: stkmngr
+permission: 
+date_conditions: 1
+run_calendar: IB_IN_P01-E-wd02nyUS
+start_times: "01:00"
+description: "STOCK : Stock operations"
+alarm_if_fail: 0
+group: H003
+
+
+ /* ----------------- siteNYUS_jump01 ----------------- */ 
+
+ insert_job: siteNYUS_jump01   job_type: CMD 
+ box_name: siteNYUS
+ command: echo /stkmngr/scripts/j__mcf.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: IB_IN_P01-E-wd02nyUS
+ start_times: "08:00"
+ condition: s(adminID_reor) & s(superID_jrlv)
+ description: "Import generated data"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ must_start_times: "24:44"
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCF_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCFRLV_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- siteNYUS_jump02 ----------------- */ 
+
+ insert_job: siteNYUS_jump02   job_type: CMD 
+ box_name: siteNYUS
+ command: echo /stkmngr/scripts/j__mcf.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: IB_IN_P01-E-wd02nyUS
+ start_times: "08:30"
+ condition: s(siteNYUS_jump01) & s(superID_jrlv)
+ description: "Import generated data"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ must_start_times: "15:00"
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCF_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCFRLV_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- siteNYUS_jump03 ----------------- */ 
+
+ insert_job: siteNYUS_jump03   job_type: CMD 
+ box_name: siteNYUS
+ command: echo /stkmngr/scripts/j__mcf.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: IB_IN_P01-E-wd02nyUS
+ start_times: "09:00"
+ condition: s(siteNYUS_jump02) & s(superID_jrlv)
+ description: "Import generated data"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ must_start_times: "24:44"
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCF_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCFRLV_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- siteNYUS_jump04 ----------------- */ 
+
+ insert_job: siteNYUS_jump04   job_type: CMD 
+ box_name: siteNYUS
+ command: echo /stkmngr/scripts/j__mcf.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: IB_IN_P01-E-wd02nyUS
+ start_times: "09:30"
+ condition: s(siteNYUS_jump03) & s(superID_jrlv)
+ description: "Import generated data"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ must_start_times: "15:00"
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCF_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCFRLV_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- siteNYUS_jump05 ----------------- */ 
+
+ insert_job: siteNYUS_jump05   job_type: CMD 
+ box_name: siteNYUS
+ command: echo /stkmngr/scripts/j__mcf.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: IB_IN_P01-E-wd02nyUS
+ start_times: "10:00"
+ condition: s(siteNYUS_jump04) & s(superID_jrlv)
+ description: "Import generated data"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ must_start_times: "24:44"
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCF_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCFRLV_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- siteNYUS_jump06 ----------------- */ 
+
+ insert_job: siteNYUS_jump06   job_type: CMD 
+ box_name: siteNYUS
+ command: echo /stkmngr/scripts/j__mcf.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: IB_IN_P01-E-wd02nyUS
+ start_times: "10:30"
+ condition: s(siteNYUS_jump05) & s(superID_jrlv)
+ description: "Import generated data"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ must_start_times: "15:00"
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCF_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCFRLV_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- siteNYUS_jump07 ----------------- */ 
+
+ insert_job: siteNYUS_jump07   job_type: CMD 
+ box_name: siteNYUS
+ command: echo /stkmngr/scripts/j__mcf.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: IB_IN_P01-E-wd02nyUS
+ start_times: "11:00"
+ condition: s(siteNYUS_jump06) & s(superID_jrlv)
+ description: "Import generated data"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ must_start_times: "24:44"
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCF_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCFRLV_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- siteNYUS_jump08 ----------------- */ 
+
+ insert_job: siteNYUS_jump08   job_type: CMD 
+ box_name: siteNYUS
+ command: echo /stkmngr/scripts/j__mcf.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: IB_IN_P01-E-wd02nyUS
+ start_times: "11:30"
+ condition: s(siteNYUS_jump07) & s(superID_jrlv)
+ description: "Import generated data"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ must_start_times: "15:00"
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCF_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCFRLV_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- siteNYUS_jump09 ----------------- */ 
+
+ insert_job: siteNYUS_jump09   job_type: CMD 
+ box_name: siteNYUS
+ command: echo /stkmngr/scripts/j__mcf.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: IB_IN_P01-E-wd02nyUS
+ start_times: "12:00"
+ condition: s(siteNYUS_jump08) & s(superID_jrlv)
+ description: "Import generated data"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ must_start_times: "24:44"
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCF_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCFRLV_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- siteNYUS_jump10 ----------------- */ 
+
+ insert_job: siteNYUS_jump10   job_type: CMD 
+ box_name: siteNYUS
+ command: echo /stkmngr/scripts/j__mcf.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: IB_IN_P01-E-wd02nyUS
+ start_times: "12:30"
+ condition: s(siteNYUS_jump09) & s(superID_jrlv)
+ description: "Import generated data"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ must_start_times: "24:44"
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCF_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCFRLV_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- siteNYUS_jump11 ----------------- */ 
+
+ insert_job: siteNYUS_jump11   job_type: CMD 
+ box_name: siteNYUS
+ command: echo /stkmngr/scripts/j__mcf.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: IB_IN_P01-E-wd02nyUS
+ start_times: "13:00"
+ condition: s(siteNYUS_jump10) & s(superID_jrlv)
+ description: "Import generated data"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ must_start_times: "24:44"
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCF_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCFRLV_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- siteNYUS_jump12 ----------------- */ 
+
+ insert_job: siteNYUS_jump12   job_type: CMD 
+ box_name: siteNYUS
+ command: echo /stkmngr/scripts/j__mcf.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: IB_IN_P01-E-wd02nyUS
+ start_times: "13:30"
+ condition: s(siteNYUS_jump11) & s(superID_jrlv)
+ description: "Import generated data"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ must_start_times: "24:44"
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCF_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCFRLV_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- siteNYUS_jump13 ----------------- */ 
+
+ insert_job: siteNYUS_jump13   job_type: CMD 
+ box_name: siteNYUS
+ command: echo /stkmngr/scripts/j__mcf.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: IB_IN_P01-E-wd02nyUS
+ start_times: "14:00"
+ condition: s(siteNYUS_jump12) & s(superID_jrlv)
+ description: "Import generated data"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ must_start_times: "24:44"
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCF_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCFRLV_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- siteNYUS_jump14 ----------------- */ 
+
+ insert_job: siteNYUS_jump14   job_type: CMD 
+ box_name: siteNYUS
+ command: echo /stkmngr/scripts/j__mcf.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: IB_IN_P01-E-wd02nyUS
+ start_times: "14:30"
+ condition: s(siteNYUS_jump13) & s(superID_jrlv)
+ description: "Import generated data"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ must_start_times: "24:44"
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCF_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCFRLV_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- siteNYUS_jump15 ----------------- */ 
+
+ insert_job: siteNYUS_jump15   job_type: CMD 
+ box_name: siteNYUS
+ command: echo /stkmngr/scripts/j__mcf.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: IB_IN_P01-E-wd02nyUS
+ start_times: "15:00"
+ condition: s(siteNYUS_jump14) & s(superID_jrlv)
+ description: "Import generated data"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ must_start_times: "24:44"
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCF_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCFRLV_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- siteNYUS_jump16 ----------------- */ 
+
+ insert_job: siteNYUS_jump16   job_type: CMD 
+ box_name: siteNYUS
+ command: echo /stkmngr/scripts/j__mcf.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: IB_IN_P01-E-wd02nyUS
+ start_times: "15:30"
+ condition: s(siteNYUS_jump15) & s(superID_jrlv)
+ description: "Import generated data"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ must_start_times: "24:44"
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCF_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCFRLV_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- siteNYUS_jump17 ----------------- */ 
+
+ insert_job: siteNYUS_jump17   job_type: CMD 
+ box_name: siteNYUS
+ command: echo /stkmngr/scripts/j__mcf.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: IB_IN_P01-E-wd02nyUS
+ start_times: "16:00"
+ condition: s(siteNYUS_jump16) & s(superID_jrlv)
+ description: "Import generated data"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ must_start_times: "24:44"
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCF_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCFRLV_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- siteNYUS_jump18 ----------------- */ 
+
+ insert_job: siteNYUS_jump18   job_type: CMD 
+ box_name: siteNYUS
+ command: echo /stkmngr/scripts/j__mcf.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: IB_IN_P01-E-wd02nyUS
+ start_times: "16:30"
+ condition: s(siteNYUS_jump17) & s(superID_jrlv)
+ description: "Import generated data"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ must_start_times: "24:44"
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCF_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCFRLV_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- siteNYUS_jump19 ----------------- */ 
+
+ insert_job: siteNYUS_jump19   job_type: CMD 
+ box_name: siteNYUS
+ command: echo /stkmngr/scripts/j__mcf.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: IB_IN_P01-E-wd02nyUS
+ start_times: "17:00"
+ condition: s(siteNYUS_jump18) & s(superID_jrlv)
+ description: "Import generated data"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ must_start_times: "24:44"
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCF_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCFRLV_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- siteNYUS_jump20 ----------------- */ 
+
+ insert_job: siteNYUS_jump20   job_type: CMD 
+ box_name: siteNYUS
+ command: echo /stkmngr/scripts/j__mcf.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: IB_IN_P01-E-wd02nyUS
+ start_times: "17:30"
+ condition: s(siteNYUS_jump19) & s(superID_jrlv)
+ description: "Import generated data"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ must_start_times: "24:44"
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCF_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCFRLV_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- siteNYUS_jump21 ----------------- */ 
+
+ insert_job: siteNYUS_jump21   job_type: CMD 
+ box_name: siteNYUS
+ command: echo /stkmngr/scripts/j__mcf.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: IB_IN_P01-E-wd02nyUS
+ start_times: "18:00"
+ condition: s(siteNYUS_jump20) & s(superID_jrlv)
+ description: "Import generated data"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ must_start_times: "24:44"
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCF_ID,QUANTITY=1,FREE=A) AND (IB_IN_P01-RMCFRLV_ID,QUANTITY=1,FREE=A)
+
+
+ /* ----------------- siteNYUS_j400 ----------------- */ 
+
+ insert_job: siteNYUS_j400   job_type: CMD 
+ box_name: siteNYUS
+ command: /stkmngr/scripts/j400_A6.sh
+ machine: STKMNGR001
+ owner: stkmngr
+ permission: 
+ date_conditions: 1
+ run_calendar: IB_IN_P01-E-wd02nyUS
+ start_times: "19:00"
+ description: "purge 19h"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+
+
+/* ----------------- admiStock ----------------- */ 
+
+insert_job: admiStock   job_type: BOX 
+owner: anyOps
+permission: 
+date_conditions: 1
+run_calendar: IB_IN_P01-E-tlj
+start_times: "01:30"
+description: "Parse all base file"
+alarm_if_fail: 0
+group: H003
+
+
+ /* ----------------- admiStock_stop ----------------- */ 
+
+ insert_job: admiStock_stop   job_type: CMD 
+ box_name: admiStock
+ command: echo /stkmngr/scripts/stop.sh anyOps
+ machine: STKMNGR001
+ owner: anyOps
+ permission: 
+ date_conditions: 0
+ description: "Stop all process"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+
+
+ /* ----------------- admiStock_backrman ----------------- */ 
+
+ insert_job: admiStock_backrman   job_type: CMD 
+ box_name: admiStock
+ command: echo /apps/memoSteps/outils/save/backrman.sh ID_I1MAP0 anyOps
+ machine: STKMNGR001
+ owner: oracle
+ permission: 
+ date_conditions: 0
+ condition: s(admiStock_stop)
+ description: "Save oracle database"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+
+
+ /* ----------------- admiStock_sauv ----------------- */ 
+
+ insert_job: admiStock_sauv   job_type: CMD 
+ box_name: admiStock
+ command: echo /apps/memoSteps/outils/save/save.sh anyOps
+ machine: STKMNGR001
+ owner: anyOps
+ permission: 
+ date_conditions: 0
+ condition: s(admiStock_stop)
+ description: "save current loaded env"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+
+
+ /* ----------------- admiStock_cftsauv ----------------- */ 
+
+ insert_job: admiStock_cftsauv   job_type: CMD 
+ box_name: admiStock
+ command: echo /apps/memoSteps/outils/save/cftsave.sh anyOps
+ machine: STKMNGR001
+ owner: anyOps
+ permission: 
+ date_conditions: 0
+ condition: s(admiStock_backrman) & s(admiStock_sauv)
+ description: "envoi saves vers backup"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+
+
+ /* ----------------- admiStock_start ----------------- */ 
+
+ insert_job: admiStock_start   job_type: CMD 
+ box_name: admiStock
+ command: echo /stkmngr/scripts/start.sh
+ machine: STKMNGR001
+ owner: anyOps
+ permission: 
+ date_conditions: 0
+ condition: s(admiStock_backrman) & s(admiStock_sauv)
+ description: "start all service"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+
+
+ /* ----------------- adminID_reor ----------------- */ 
+
+ insert_job: adminID_reor   job_type: CMD 
+ box_name: admiStock
+ command: echo /stkmngr/scripts/reor.sh
+ machine: STKMNGR001
+ owner: anyOps
+ permission: 
+ date_conditions: 0
+ condition: s(admiStock_backrman) & s(admiStock_start)
+ description: "Epuration et reorg de la base"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+
+
+ /* ----------------- admiStock_tsm ----------------- */ 
+
+ insert_job: admiStock_tsm   job_type: CMD 
+ box_name: admiStock
+ command: echo /apps/memoSteps/outils/save/tsm.sh anyOps
+ machine: STKMNGR001
+ owner: anyOps
+ permission: 
+ date_conditions: 0
+ condition: s(admiStock_cftsauv) & s(adminID_reor)
+ description: "save TSM"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+
+
+/* ----------------- admt_ID ----------------- */ 
+
+insert_job: admt_ID   job_type: BOX 
+owner: anyOps
+permission: 
+date_conditions: 0
+run_calendar: IB_IN_P01-E-tlj
+start_times: "02:05"
+condition: s(admiStock)
+description: "Parse all base file"
+alarm_if_fail: 0
+group: H003
+
+
+ /* ----------------- admt_ID_stop ----------------- */ 
+
+ insert_job: admt_ID_stop   job_type: CMD 
+ box_name: admt_ID
+ command: echo /stkmngr/scripts/stop.sh anyOps
+ machine: STKMNGR001
+ owner: anyOps
+ permission: 
+ date_conditions: 0
+ description: "Stop all process"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=23,FREE=A)
+
+
+ /* ----------------- admt_ID_backrman ----------------- */ 
+
+ insert_job: admt_ID_backrman   job_type: CMD 
+ box_name: admt_ID
+ command: echo /apps/memoSteps/outils/save/backrman.sh ID_I1MAP0 anyOps
+ machine: STKMNGR001
+ owner: oracle
+ permission: 
+ date_conditions: 0
+ condition: s(admt_ID_stop)
+ description: "Save oracle database"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=23,FREE=A)
+
+
+ /* ----------------- admt_ID_sauv ----------------- */ 
+
+ insert_job: admt_ID_sauv   job_type: CMD 
+ box_name: admt_ID
+ command: echo /apps/memoSteps/outils/save/save.sh anyOps
+ machine: STKMNGR001
+ owner: anyOps
+ permission: 
+ date_conditions: 0
+ condition: s(admt_ID_stop)
+ description: "save current loaded env"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=23,FREE=A)
+
+
+ /* ----------------- admt_ID_reor ----------------- */ 
+
+ insert_job: admt_ID_reor   job_type: CMD 
+ box_name: admt_ID
+ command: echo /stkmngr/scripts/reor.sh
+ machine: STKMNGR001
+ owner: anyOps
+ permission: 
+ date_conditions: 0
+ condition: s(admt_ID_backrman)
+ description: "Epuration et reorg de la base"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=23,FREE=A)
+
+
+ /* ----------------- admt_ID_dema ----------------- */ 
+
+ insert_job: admt_ID_dema   job_type: CMD 
+ box_name: admt_ID
+ command: echo /stkmngr/scripts/dema.sh
+ machine: STKMNGR001
+ owner: anyOps
+ permission: 
+ date_conditions: 0
+ condition: s(admt_ID_backrman) & s(admt_ID_reor) & s(admt_ID_sauv)
+ description: "demarrage de services"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=23,FREE=A)
+
+
+ /* ----------------- admt_ID_cftsauv ----------------- */ 
+
+ insert_job: admt_ID_cftsauv   job_type: CMD 
+ box_name: admt_ID
+ command: echo /apps/memoSteps/outils/save/cftsave.sh anyOps
+ machine: STKMNGR001
+ owner: anyOps
+ permission: 
+ date_conditions: 0
+ condition: s(admt_ID_backrman) & s(admt_ID_sauv)
+ description: "envoi saves vers backup"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+ resources: (IB_IN_P01-BASE_ID,QUANTITY=23,FREE=A)
+
+
+ /* ----------------- admt_ID_tsm ----------------- */ 
+
+ insert_job: admt_ID_tsm   job_type: CMD 
+ box_name: admt_ID
+ command: echo /apps/memoSteps/outils/save/tsm.sh anyOps
+ machine: STKMNGR001
+ owner: anyOps
+ permission: 
+ date_conditions: 0
+ condition: s(admt_ID_cftsauv) & s(admt_ID_reor)
+ description: "save TSM"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
+
+
+/* ----------------- wsex_ID ----------------- */ 
+
+insert_job: wsex_ID   job_type: BOX 
+owner: anyOps
+permission: 
+date_conditions: 1
+run_calendar: IB_IN_P01-E-wsex_ID
+start_times: "19:00"
+description: "Consolidation of all statistics STOCK anyOps"
+alarm_if_fail: 0
+group: H003
+
+
+ /* ----------------- wsex_ID_export ----------------- */ 
+
+ insert_job: wsex_ID_export   job_type: CMD 
+ box_name: wsex_ID
+ command: echo /webstat/scripts/export.sh anyOps
+ machine: STKMNGR001
+ owner: anyOps
+ permission: 
+ date_conditions: 0
+ description: "Export of all statistics of anyOps"
+ std_out_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).log"
+ std_err_file: "/apps/exploit/log/stkmngr/${AUTO_JOB_NAME}_$(date +%Y%m%d%H%M).err"
+ alarm_if_fail: 1
+ group: H003
